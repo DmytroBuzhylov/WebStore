@@ -11,7 +11,7 @@ import (
 
 func (h *AuthHandler) register(c *gin.Context) {
 	var req *domain.User
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(c.Request.Context(), 10*time.Second)
 	defer cancel()
 
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -39,7 +39,7 @@ func (h *AuthHandler) login(c *gin.Context) {
 		req *domain.User
 		err error
 	)
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(c.Request.Context(), 10*time.Second)
 	defer cancel()
 
 	if err = c.ShouldBindJSON(&req); err != nil {
@@ -69,7 +69,7 @@ func (h *AuthHandler) verify(c *gin.Context) {
 			Code  string `json:"code"`
 		}
 	)
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(c.Request.Context(), 10*time.Second)
 	defer cancel()
 
 	if err = c.ShouldBindJSON(&req); err != nil {

@@ -19,7 +19,7 @@ func NewAuthRepository(db *gorm.DB) *AuthRepository {
 func (r *AuthRepository) Create(ctx context.Context, user *domain.User) error {
 	var err error
 	for i := 0; i < 3; i++ {
-		err = r.db.Create(user).Error
+		err = r.db.WithContext(ctx).Create(user).Error
 		if err == nil {
 			return nil
 		}
@@ -35,7 +35,7 @@ func (r *AuthRepository) FindByEmail(ctx context.Context, email string) (*domain
 	)
 
 	for i := 0; i < 3; i++ {
-		err = r.db.Where("email = ?", email).First(&user).Error
+		err = r.db.WithContext(ctx).Where("email = ?", email).First(&user).Error
 		if err == nil || errors.Is(err, gorm.ErrRecordNotFound) {
 			return &user, err
 		}
@@ -48,7 +48,7 @@ func (r *AuthRepository) FindByEmail(ctx context.Context, email string) (*domain
 func (r *AuthRepository) Save(ctx context.Context, user *domain.User) error {
 	var err error
 	for i := 0; i < 3; i++ {
-		err = r.db.Save(&user).Error
+		err = r.db.WithContext(ctx).Save(&user).Error
 		if err == nil {
 			return nil
 		}

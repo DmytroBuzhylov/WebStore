@@ -93,3 +93,5 @@ func (t *StoreRefreshToken) IsValid(token string, r *redis.Client) bool {
 	val, err := r.Get(context.Background(), token).Result()
 	return err == nil && val == "active"
 }
+
+func RefreshAccessToken(refreshToken string) {}

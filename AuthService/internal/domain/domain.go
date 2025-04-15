@@ -7,7 +7,7 @@ import (
 
 type User struct {
 	ID        string    `json:"ID" gorm:"type:uuid;primaryKey;not null;index"`
-	FullName  string    `binding:"required,min=3" json:"userName" gorm:"not null"`
+	FullName  string    `binding:"required,min=3" json:"userName" gorm:"not null;size:30"`
 	Email     string    `json:"email" binding:"required,email" gorm:"unique;not null;index"`
 	Password  string    `json:"password" binding:"required,min=8" gorm:"not null"`
 	Role      string    `json:"role" gorm:"default:user;not null"`
